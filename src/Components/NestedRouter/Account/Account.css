@@ -1,0 +1,167 @@
+.username {
+    color: #EF5794;
+}
+
+.name {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.parent-account {
+    width: 50%;
+    margin: auto;
+
+}
+
+.logo-account1 {
+    width: 100px;
+    height: 100px;
+
+}
+
+.logo-account {
+    width: 40px;
+    height: 30px;
+    font-size: 1.7em;
+    color: var(--text);
+    /* background: #000; */
+
+}
+
+.details {
+    width: 50%;
+    padding: 9px;
+    border-radius: 15px;
+    background: var(--header);
+    margin: auto;
+}
+
+.img-account {
+    width: 40px;
+    margin: 0 10px;
+    color: var(--text);
+    font-size: 1.7em;
+}
+
+.btn-account {
+    font-size: 1.3em;
+    background: #FF78AF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 40px;
+    color: var(--text-customized);
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 1px;
+
+}
+.btn-delete {
+    font-size: 1.3em;
+    border: none;
+    background: var(--header);
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 40px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: 1px;
+
+}
+.fa-pen-to-square:hover,.btn-account:hover{
+    cursor: pointer;
+}
+.fa-trash-can {
+    color: var(--text);
+    font-size: 1.7em;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+.text-account:hover,.fa-trash-can:hover {
+    color: red !important;
+
+}
+
+.text-account {
+    color: var(--text);
+    text-align: center;
+    font-family: "Protest Riot", sans-serif !important;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+    cursor: pointer;
+}
+
+/* photo */
+.upload-photo{
+    color: var(--text) !important;
+}
+.parent-photo{
+    cursor: pointer;
+    height: 150px;
+}
+
+.upload-photo:hover{
+    color: blue;
+    font-size: 1.1em;
+}
+.file-img{
+    background-image: none !important;
+}
+
+@media only screen and (max-width: 700px) {
+    .details {
+        width: 95%;
+
+    }
+
+    .parent-account {
+        width: 95%;
+
+
+    }
+
+    .between {
+        justify-content: space-between !important;
+    }
+
+    .img-account {
+        width: 30px;
+        margin: 0 5px;
+    }
+
+    .username {
+        font-size: 1.1em;
+    }
+
+    .phone {
+        font-size: 1.1em;
+    }
+
+    .logo-account1 {
+        width: 100px;
+    }
+
+    .logo-account {
+        width: 30px;
+        height: 25px;
+        font-size: 1.2em;
+        /* background: #000; */
+    }
+
+    .img-account {
+        width: 25px !important;
+        height: 25px !important;
+        font-size: 1.2em;
+    }
+        .btn-account {
+            font-size: 1em;
+        }
+}
