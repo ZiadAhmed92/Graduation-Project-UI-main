@@ -1,0 +1,8 @@
+.icon-result{
+  width: 25%;
+}
+@media only screen and (max-width: 600px) {
+.icon-result {
+    width: 50%;
+  }
+}

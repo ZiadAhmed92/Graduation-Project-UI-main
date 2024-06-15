@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from 'react';
-// import { useEffect } from 'react';
+import loading from "../../../image/loading.json"
 import {
   ChartComponent,
   SeriesCollectionDirective,
@@ -17,6 +17,9 @@ import { Browser } from '@syncfusion/ej2-base';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useLayoutEffect } from 'react';
+import { useState } from 'react';
+import Lottie from 'lottie-react';
+
 export let Angry = [];
 export let Disgusted = [];
 export let Fear = [];
@@ -28,105 +31,129 @@ export let Calm = [];
 
 
 
-async function getHistoryFotWeek() {
-  let { data } = await axios.get(
-    `https://speech-emotions-874.onrender.com/emotions/history/week/${localStorage.getItem(
-      "UserId"
-    )}`,
-    {
-      headers: {
-        token: `${localStorage.getItem("Token")}`,
-      },
-    }
-  );  
-    // console.log(data.Week)
 
 
 
-
-   Angry = [
-  { x: 'Sun', y: data.Week.Sunday.Angry  , fill: ' #FF2414', toolTipMappingName: 'Sun' },
-  { x: 'Mon', y: data.Week.Monday.Angry, fill: ' #FF2414', toolTipMappingName: 'Mon' },
-  { x: 'Tue', y: data.Week.Tuesday.Angry, fill: ' #FF2414', toolTipMappingName: 'Tue' },
-  { x: 'Wed', y: data.Week.Wednesday.Angry, fill: ' #FF2414', toolTipMappingName: 'Wed' },
-  { x: 'Thu', y: data.Week.Thursday.Angry, fill: ' #FF2414', toolTipMappingName: 'Thu' },
-  { x: 'Fri', y: data.Week.Friday.Angry, fill: ' #FF2414', toolTipMappingName: 'Fri' },
-  { x: 'Sat', y: data.Week.Saturday.Angry, fill: ' #FF2414', toolTipMappingName: 'Sat' },
-];
-  Sad = [
-  { x: 'Sun', y: data.Week.Sunday.Sad, fill:    '  #0057AE', toolTipMappingName: 'Sun' },
-  { x: 'Mon', y: data.Week.Monday.Sad, fill:    '  #0057AE', toolTipMappingName: 'Mon' },
-  { x: 'Tue', y: data.Week.Tuesday.Sad, fill:   ' #0057AE', toolTipMappingName: 'Tue' },
-  { x: 'Wed', y: data.Week.Wednesday.Sad, fill: '  #0057AE', toolTipMappingName: 'Wed' },
-  { x: 'Thu', y: data.Week.Thursday.Sad, fill:  '  #0057AE', toolTipMappingName: 'Thu' },
-  { x: 'Fri', y: data.Week.Friday.Sad, fill:    '  #0057AE', toolTipMappingName: 'Fri' },
-  { x: 'Sat', y: data.Week.Saturday.Sad, fill:  ' #0057AE', toolTipMappingName: 'Sat' },
-];
-  Happy = [
-  { x: 'Sun', y: data.Week.Sunday.Happy,fill:'  #FFEB00', toolTipMappingName: 'Sun' },
-  { x: 'Mon', y: data.Week.Monday.Happy,fill:'  #FFEB00', toolTipMappingName: 'Mon' },
-  { x: 'Tue', y: data.Week.Tuesday.Happy,fill:'  #FFEB00', toolTipMappingName: 'Tue' },
-  { x: 'Wed', y: data.Week.Wednesday.Happy,fill:'  #FFEB00', toolTipMappingName: 'Wed' },
-  { x: 'Thu', y: data.Week.Thursday.Happy,fill:'  #FFEB00', toolTipMappingName: 'Thu' },
-  { x: 'Fri', y: data.Week.Friday.Happy,fill:'  #FFEB00', toolTipMappingName: 'Fri' },
-  { x: 'Sat', y: data.Week.Saturday.Happy,fill:'  #FFEB00', toolTipMappingName: 'Sat' },
-];
-  Natural = [
-  { x: 'Sun', y: data.Week.Sunday.Neutral,fill: " #CFD8DC", toolTipMappingName: 'Sun' },
-  { x: 'Mon', y: data.Week.Monday.Neutral,fill: " #CFD8DC", toolTipMappingName: 'Mon' },
-  { x: 'Tue', y: data.Week.Tuesday.Neutral,fill: " #CFD8DC", toolTipMappingName: 'Tue' },
-  { x: 'Wed', y: data.Week.Wednesday.Neutral,fill: " #CFD8DC", toolTipMappingName: 'Wed' },
-  { x: 'Thu', y: data.Week.Thursday.Neutral,fill: " #CFD8DC", toolTipMappingName: 'Thu' },
-  { x: 'Fri', y: data.Week.Friday.Neutral,fill: " #CFD8DC", toolTipMappingName: 'Fri' },
-  { x: 'Sat', y: data.Week.Saturday.Neutral,fill: " #CFD8DC", toolTipMappingName: 'Sat' },
-];
-  Calm = [
-  { x: 'Sun', y: data.Week.Sunday.Calm,fill: " #00BEFF", toolTipMappingName: 'Sun' },
-  { x: 'Mon', y: data.Week.Monday.Calm,fill: " #00BEFF", toolTipMappingName: 'Mon' },
-  { x: 'Tue', y: data.Week.Tuesday.Calm,fill: " #00BEFF", toolTipMappingName: 'Tue' },
-  { x: 'Wed', y: data.Week.Wednesday.Calm,fill: " #00BEFF", toolTipMappingName: 'Wed' },
-  { x: 'Thu', y: data.Week.Thursday.Calm,fill: " #00BEFF", toolTipMappingName: 'Thu' },
-  { x: 'Fri', y: data.Week.Friday.Calm,fill: " #00BEFF", toolTipMappingName: 'Fri' },
-  { x: 'Sat', y: data.Week.Saturday.Calm,fill: " #00BEFF", toolTipMappingName: 'Sat' },
-];
-  Fear = [
-  { x: 'Sun', y: data.Week.Sunday.Fear,fill: "  #B7043C", toolTipMappingName: 'Sun' },
-  { x: 'Mon', y: data.Week.Monday.Fear,fill: "  #B7043C", toolTipMappingName: 'Mon' },
-  { x: 'Tue', y: data.Week.Tuesday.Fear,fill: "  #B7043C", toolTipMappingName: 'Tue' },
-  { x: 'Wed', y: data.Week.Wednesday.Fear,fill: "  #B7043C", toolTipMappingName: 'Wed' },
-  { x: 'Thu', y: data.Week.Thursday.Fear,fill: "  #B7043C", toolTipMappingName: 'Thu' },
-  { x: 'Fri', y: data.Week.Friday.Fear,fill: "  #B7043C", toolTipMappingName: 'Fri' },
-  { x: 'Sat', y: data.Week.Saturday.Fear,fill: "  #B7043C", toolTipMappingName: 'Sat' },
-];
-  Disgusted = [
-  { x: 'Sun', y: data.Week.Sunday.Disgust,fill: "  #A1E533", toolTipMappingName: 'Sun' },
-  { x: 'Mon', y: data.Week.Monday.Disgust,fill: "  #A1E533", toolTipMappingName: 'Mon' },
-  { x: 'Tue', y: data.Week.Tuesday.Disgust,fill: "  #A1E533", toolTipMappingName: 'Tue' },
-  { x: 'Wed', y: data.Week.Wednesday.Disgust,fill: "  #A1E533", toolTipMappingName: 'Wed' },
-  { x: 'Thu', y: data.Week.Thursday.Disgust,fill: "  #A1E533", toolTipMappingName: 'Thu' },
-  { x: 'Fri', y: data.Week.Friday.Disgust,fill: "  #A1E533", toolTipMappingName: 'Fri' },
-  { x: 'Sat', y: data.Week.Saturday.Disgust,fill: "  #A1E533", toolTipMappingName: 'Sat' },
-];
-  Surprised = [
-  { x: 'Sun', y:data.Week.Sunday.Surprise ,fill: "  #FF6900",  toolTipMappingName: 'Sun' },
-  { x: 'Mon', y:data.Week.Monday.Surprise , fill: "  #FF6900", toolTipMappingName: 'Mon' },
-  { x: 'Tue', y:data.Week.Tuesday.Surprise ,fill: "  #FF6900",  toolTipMappingName: 'Tue' },
-  { x: 'Wed', y:data.Week.Wednesday.Surprise ,fill: "  #FF6900",  toolTipMappingName: 'Wed' },
-  { x: 'Thu', y:data.Week.Thursday.Surprise , fill: "  #FF6900", toolTipMappingName: 'Thu' },
-  { x: 'Fri', y:data.Week.Friday.Surprise , fill: "  #FF6900", toolTipMappingName: 'Fri' },
-  { x: 'Sat', y:data.Week.Saturday.Surprise , fill: "  #FF6900", toolTipMappingName: 'Sat' },
-];
-}
-
-const SAMPLE_CSS = `
-    .control-fluid {
-        padding: 0px !important;
-    }`;
 const Week = () => {
+
+  const [week, setWeek] = useState({ Week: {} });
+
 
   useLayoutEffect(() => {
     getHistoryFotWeek();
   }, []);
+
+
+  async function getHistoryFotWeek() {
+
+
+    let { data } = await axios.get(
+      `https://speech-emotions-874.onrender.com/emotions/history/week/${localStorage.getItem(
+        "UserId"
+      )}`,
+      {
+        headers: {
+          token: `${localStorage.getItem("Token")}`,
+        },
+      }
+    );
+    setWeek(data);
+    // console.log(data.Week)
+  }
+
+  if (!week.Week.Saturday) {
+    return <><div className=' col-md-12 d-flex align-items-center justify-content-center'>
+      <div >
+        <Lottie animationData={loading} />
+      </div>
+    </div> </>
+
+  }
+
+
+  Angry = [
+    { x: 'Sat', y: week.Week.Saturday.Angry, fill: ' #FF2414', toolTipMappingName: 'Sat' },
+    { x: 'Sun', y: week.Week.Sunday.Angry, fill: ' #FF2414', toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Angry, fill: ' #FF2414', toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Angry, fill: ' #FF2414', toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Angry, fill: ' #FF2414', toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Angry, fill: ' #FF2414', toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Angry, fill: ' #FF2414', toolTipMappingName: 'Fri' },
+  ];
+  Sad = [
+    { x: 'Sat', y: week.Week.Saturday.Sad, fill: ' #0057AE', toolTipMappingName: 'Sat' },
+    { x: 'Sun', y: week.Week.Sunday.Sad, fill: '  #0057AE', toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Sad, fill: '  #0057AE', toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Sad, fill: ' #0057AE', toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Sad, fill: '  #0057AE', toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Sad, fill: '  #0057AE', toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Sad, fill: '  #0057AE', toolTipMappingName: 'Fri' },
+  ];
+  Happy = [
+    { x: 'Sat', y: week.Week.Saturday.Happy, fill: '  #FFEB00', toolTipMappingName: 'Sat' },
+
+    { x: 'Sun', y: week.Week.Sunday.Happy, fill: '  #FFEB00', toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Happy, fill: '  #FFEB00', toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Happy, fill: '  #FFEB00', toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Happy, fill: '  #FFEB00', toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Happy, fill: '  #FFEB00', toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Happy, fill: '  #FFEB00', toolTipMappingName: 'Fri' },
+  ];
+  Natural = [
+    { x: 'Sat', y: week.Week.Saturday.Neutral, fill: " #CFD8DC", toolTipMappingName: 'Sat' },
+
+    { x: 'Sun', y: week.Week.Sunday.Neutral, fill: " #CFD8DC", toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Neutral, fill: " #CFD8DC", toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Neutral, fill: " #CFD8DC", toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Neutral, fill: " #CFD8DC", toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Neutral, fill: " #CFD8DC", toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Neutral, fill: " #CFD8DC", toolTipMappingName: 'Fri' },
+  ];
+  Calm = [
+    { x: 'Sat', y: week.Week.Saturday.Calm, fill: " #00BEFF", toolTipMappingName: 'Sat' },
+
+    { x: 'Sun', y: week.Week.Sunday.Calm, fill: " #00BEFF", toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Calm, fill: " #00BEFF", toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Calm, fill: " #00BEFF", toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Calm, fill: " #00BEFF", toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Calm, fill: " #00BEFF", toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Calm, fill: " #00BEFF", toolTipMappingName: 'Fri' },
+  ];
+  Fear = [
+    { x: 'Sat', y: week.Week.Saturday.Fear, fill: "  #B7043C", toolTipMappingName: 'Sat' },
+
+    { x: 'Sun', y: week.Week.Sunday.Fear, fill: "  #B7043C", toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Fear, fill: "  #B7043C", toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Fear, fill: "  #B7043C", toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Fear, fill: "  #B7043C", toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Fear, fill: "  #B7043C", toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Fear, fill: "  #B7043C", toolTipMappingName: 'Fri' },
+  ];
+  Disgusted = [
+    { x: 'Sat', y: week.Week.Saturday.Disgust, fill: "  #A1E533", toolTipMappingName: 'Sat' },
+
+    { x: 'Sun', y: week.Week.Sunday.Disgust, fill: "  #A1E533", toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Disgust, fill: "  #A1E533", toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Disgust, fill: "  #A1E533", toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Disgust, fill: "  #A1E533", toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Disgust, fill: "  #A1E533", toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Disgust, fill: "  #A1E533", toolTipMappingName: 'Fri' },
+  ];
+  Surprised = [
+    { x: 'Sat', y: week.Week.Saturday.Surprise, fill: "  #FF6900", toolTipMappingName: 'Sat' },
+
+    { x: 'Sun', y: week.Week.Sunday.Surprise, fill: "  #FF6900", toolTipMappingName: 'Sun' },
+    { x: 'Mon', y: week.Week.Monday.Surprise, fill: "  #FF6900", toolTipMappingName: 'Mon' },
+    { x: 'Tue', y: week.Week.Tuesday.Surprise, fill: "  #FF6900", toolTipMappingName: 'Tue' },
+    { x: 'Wed', y: week.Week.Wednesday.Surprise, fill: "  #FF6900", toolTipMappingName: 'Wed' },
+    { x: 'Thu', y: week.Week.Thursday.Surprise, fill: "  #FF6900", toolTipMappingName: 'Thu' },
+    { x: 'Fri', y: week.Week.Friday.Surprise, fill: "  #FF6900", toolTipMappingName: 'Fri' },
+  ];
+
+  const SAMPLE_CSS = `
+  .control-fluid {
+      padding: 0px !important;
+  }`;
 
   const loaded = (args) => {
     let chart = document.getElementById('charts');
@@ -152,16 +179,16 @@ const Week = () => {
     }
   };
   return (
-    
+
     <div className="control-pane pt-5">
       <div className='w-100 '>
-      <div className='text-center'>
-        <Link to="/homepage/history"><button style={{background:" rgb(243, 223, 227)",color:"black"}} className='btn px-3 mx-2' >Day</button></Link>
-        <Link to=""><button style={{background:" #F85899",color:"white"}} className='btn px-3 mx-2'>Week</button></Link>
-        <Link to="/homepage/history/month"><button style={{background:" rgb(243, 223, 227)",color:"black"}} className='btn px-3 mx-2'>Month</button></Link>
-        <Link to="/homepage/history/year"><button style={{background:" rgb(243, 223, 227)",color:"black"}} className='btn px-3 mx-2'>Year</button></Link>
+        <div className='text-center'>
+          <Link to="/homepage/history"><button style={{ background: " rgb(243, 223, 227)", color: "black" }} className='btn px-3 mx-2' >Day</button></Link>
+          <Link to=""><button style={{ background: " #F85899", color: "white" }} className='btn px-3 mx-2'>Week</button></Link>
+          <Link to="/homepage/history/month"><button style={{ background: " rgb(243, 223, 227)", color: "black" }} className='btn px-3 mx-2'>Month</button></Link>
+          <Link to="/homepage/history/year"><button style={{ background: " rgb(243, 223, 227)", color: "black" }} className='btn px-3 mx-2'>Year</button></Link>
+        </div>
       </div>
-    </div> 
       <style>{SAMPLE_CSS}</style>
       <div className="control-section">
         <ChartComponent
@@ -173,11 +200,17 @@ const Week = () => {
             labelRotation: Browser.isDevice ? -45 : 0,
             valueType: 'Category',
             title: 'week',
+            titleStyle: {
+              color: 'var(--text)'
+            },
             majorGridLines: { width: 2 },
             majorTickLines: { width: 2 },
           }}
           primaryYAxis={{
             title: 'The number of repetitions of emotion',
+            titleStyle: {
+              color: 'var(--text)'
+            },
             majorTickLines: { width: 2 },
             lineStyle: { width: 2 },
             maximum: 50,
@@ -192,6 +225,7 @@ const Week = () => {
           }}
           width={Browser.isDevice ? '100%' : '75%'}
           title="Weekly Emotions Analysis"
+          titleStyle={{ color: 'var(--text)' }}
           loaded={loaded.bind(this)}
         >
           <Inject
@@ -204,7 +238,7 @@ const Week = () => {
               Highlight,
             ]}
           />
-          
+
           <SeriesCollectionDirective >
             <SeriesDirective
               dataSource={Angry}
@@ -218,7 +252,7 @@ const Week = () => {
 
             />
             <SeriesDirective
-              dataSource={ Sad}
+              dataSource={Sad}
               tooltipMappingName="toolTipMappingName"
               xName="x"
               columnSpacing={0.1}

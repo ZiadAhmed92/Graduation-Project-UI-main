@@ -1,189 +1,191 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState, useEffect } from "react";
-import "./NewRecord.css";
-import { Link, Navigate } from "react-router-dom";
+import axios from 'axios';
+// eslint-disable-next-line no-unused-vars
+import React, { useState } from 'react';
+import { ReactMic } from 'react-mic';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Lottie from "lottie-react";
-import stop from "../../../Animation/stop.json";
-import sound from "../../../Animation/sound.json";
-import { useTranslation } from "react-i18next"; //1
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-
-
-const Newrecord = () => {
-  const { t, i18n } = useTranslation(); //2
-
-  const navigate = useNavigate();
-
-  const [stoprecording, setStopRecording] = useState(false);
-  const [recording, setRecording] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [audioStream, setAudioStream] = useState(null);
-  const [audioChunks, setAudioChunks] = useState([]);
-  const [error, setError] = useState("");
-  const [audioUrl, setAudioUrl] = useState(null);
-  // select audio
+import stop from "../../../Animation/stop.json"
+import sound from "../../../Animation/sound.json"
+import imgRecord from '../../../image/import.png'
+import imgFile from '../../../image/record.png'
+import "./NewRecord.css"
+import { useNavigate } from 'react-router-dom';
+const AudioRecorder = () => {
+  let navigate = useNavigate()
+  const [record, setRecord] = useState(false);
+  const [path, setPath] = useState(null);
+  const [recordedBlob, setRecordedBlob] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const initRecorder = () => {
+    const tempPath = `${window.location.href}/tmp`;
+    setPath(tempPath);
+  };
+
+  const startRecording = async () => {
+    if (path) {
+      setRecord(true);
+    } else {
+      initRecorder()
+      setRecord(true);
+    }
+  };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
   };
-  // const handleUpload = () => {
-  //   if (selectedFile) {
-  //     console.log('Selected file:', selectedFile);
-  //   }
-  // };
-
-  const formData = new FormData();
-  formData.append("file", selectedFile);
-  // formData.append("file", audioStream);
-
-  async function sendRecord() {
-    console.log(selectedFile)
-    try {
-      let { data } = await axios.post(
-        `https://speech-emotions-874.onrender.com/emotions/enter-record`,
-        formData,
-        {
-          headers: {
-            token: `${localStorage.getItem("Token")}`,
-          },
-        }
-      );
-      console.log(data);
-      if (data.message === "success") {
-        localStorage.setItem("emotion", data.emotion);
-        navigate("/homepage/result");
-        setLoading(true);
-      } else {
-        setLoading(false);
-        setError(data.errors.email.message);
-      }
-    } catch (error) {
-      setError(error.response.data.message);
-      setLoading(false);
-      console.log(error);
-    }
-  }
-
-  const startRecording = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      setAudioStream(stream);
-
-      setRecording(true);
-    } catch (error) {
-      console.error("Error accessing microphone:", error);
-      setError(
-        t("Connect the microphone or allow the browser to play the sound")
-      );
-    }
-  };
 
   const stopRecording = () => {
-    if (audioStream) {
-      audioStream.getTracks().forEach((track) => track.stop());
-    }
-    setRecording(false);
-    URL.revokeObjectURL(audioUrl);
+    setRecord(false);
   };
 
-  const handleDataAvailable = (event) => {
-    if (event.data.size > 0) {
-      setAudioChunks((prevChunks) => [...prevChunks, event.data]);
-    }
+  const onData = (recordedBlob) => {
+    console.log('chunk of real-time data is: ', recordedBlob);
   };
 
-  useEffect(() => {
-    if (recording) {
-      const mediaRecorder = new MediaRecorder(audioStream);
-      mediaRecorder.ondataavailable = handleDataAvailable;
-      mediaRecorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/mp3" });
-        console.log(audioBlob);
-        const url = URL.createObjectURL(audioBlob);
-        setAudioUrl(url);
-      };
+  const onStop = (recordedBlob) => {
+    console.log('recordedBlob is: ', recordedBlob);
+    setRecordedBlob(recordedBlob); // حفظ recordedBlob في الحالة
+  };
 
-      mediaRecorder.start();
-      return () => {
-        mediaRecorder.stop();
-        setAudioChunks([]);
-        URL.revokeObjectURL(audioUrl);
-      };
-    }
-  }, [recording, audioStream, audioChunks]);
+  const encodeWav = (samples, sampleRate) => {
+    const buffer = new ArrayBuffer(44 + samples.length * 2);
+    const view = new DataView(buffer);
 
-  function checkRecord() {
-    if (recording) {
-      stopRecording();
-      setStopRecording(false);
+    const writeString = (view, offset, string) => {
+      for (let i = 0; i < string.length; i++) {
+        view.setUint8(offset + i, string.charCodeAt(i));
+      }
+    };
+
+    const floatTo16BitPCM = (output, offset, input) => {
+      for (let i = 0; i < input.length; i++, offset += 2) {
+        const s = Math.max(-1, Math.min(1, input[i]));
+        output.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7FFF, true);
+      }
+    };
+
+    writeString(view, 0, 'RIFF');
+    view.setUint32(4, 36 + samples.length * 2, true);
+    writeString(view, 8, 'WAVE');
+    writeString(view, 12, 'fmt ');
+    view.setUint32(16, 16, true);
+    view.setUint16(20, 1, true);
+    view.setUint16(22, 1, true);
+    view.setUint32(24, sampleRate, true);
+    view.setUint32(28, sampleRate * 2, true);
+    view.setUint16(32, 2, true);
+    view.setUint16(34, 16, true);
+    writeString(view, 36, 'data');
+    view.setUint32(40, samples.length * 2, true);
+
+    floatTo16BitPCM(view, 44, samples);
+
+    return new Blob([view], { type: 'audio/wav' });
+  };
+
+  const encodeAudio = async (blob) => {
+    const arrayBuffer = await blob.arrayBuffer();
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    const samples = audioBuffer.getChannelData(0); // assuming mono channel
+    const encodedWav = encodeWav(samples, audioBuffer.sampleRate);
+    return encodedWav;
+  };
+
+  const sendRecord = async () => {
+    setLoading(true);
+    console.log(selectedFile, recordedBlob)
+    if (recordedBlob || selectedFile) {
+      try {
+        // تشفير الصوت
+        const formData = new FormData();
+        // تأكد من تعيين الاسم والامتداد
+        if (selectedFile) {
+          formData.append("file", selectedFile);
+        } else {
+          const encodedBlob = await encodeAudio(recordedBlob.blob);
+          formData.append("file", encodedBlob, "recording.wav");
+        }
+
+        // const { data } = await axios.post('/api/predict', formData); // استخدم المسار المبدأي '/api'
+        let { data } = await axios.post(
+          `https://speech-emotions-874.onrender.com/emotions/enter-record`,
+          formData,
+          {
+            headers: {
+              token: `${localStorage.getItem("Token")}`,
+            },
+          }
+        );
+        if (data.message == "success") {
+          localStorage.setItem("emotion", data.emotion)
+          navigate("/homepage/Result")
+          setLoading(false);
+        }
+      } catch (error) {
+        console.error('Error uploading the file:', error);
+        setLoading(false);
+      }
     } else {
-      startRecording();
-      setStopRecording(true);
+      console.log('No recorded media available.');
+      setLoading(false);
     }
-  }
-  return (
-    <div className="parent-record d-flex flex-column align-items-center justify-content-around">
-      <h4 className="sub-title new-color">
-        {t("Click the button to start recording or import an audio")}
-      </h4>
-      <div className="d-flex align-items-center justify-content-center between">
-        <div onClick={checkRecord}>
-          <button
-            className="btn border-0 "
-            style={{
-              color: "white",
-              background: "#CA4B7F",
-              width: "100px",
-              height: "100px",
-              borderRadius: "100px",
-            }}
-          >
-            <i className="fa-solid fa-microphone fa-4x"></i>
-          </button>
-        </div>
-        <input type="file" accept="audio/*" onChange={handleFileChange} />
-      </div>
-      <div>
-        <div className="fs-3 text-center text-danger">{error}</div>
-        <div className="parentLottie d-flex align-items-center justify-content-center">
-          <div onClick={checkRecord}>
-            {stoprecording && !Boolean(error) ? (
-              <Lottie
-                animationData={stop}
-                className="lottieStop curser-pointer"
-              />
-            ) : (
-              ""
-            )}
-          </div>
-          <div>
-            {stoprecording && !Boolean(error) ? (
-              <Lottie animationData={sound} className="lottieSound" />
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
+  };
 
-        {audioUrl && (
-          <div>
-            <audio controls src={audioUrl} />
-          </div>
-        )}
-        {selectedFile && (
-          <div className="text-center py-2 mt-3 sub-title">
-            {selectedFile.name}
-          </div>
-        )}
+  return (
+    <div className='parent-record d-flex flex-column align-items-center justify-content-around'>
+      <h4 className='sub-title'>Click the button to start recording or import an audio</h4>
+
+      <ToastContainer />
+      <div className='d-flex align-items-center justify-content-center'>
+        <img src={imgFile} onClick={startRecording}></img>
+
+        <label htmlFor="fileInput" style={{ cursor: "pointer", textAlign: "center" }}>
+          <img src={imgRecord} style={{ width: "130px", height: "130px" }} />
+          <input
+            type="file"
+            id="fileInput"
+            className='selectedAudio'
+            accept="audio/*"
+            style={{ display: "none" }}
+            onChange={handleFileChange}
+          />
+        </label>
       </div>
-      {/* <Link to="/homepage/result"><button onClick={handleUpload} className="btn-f-page btn-record"> {t("Show Result")}</button></Link> */}
-      <button onClick={sendRecord} className="btn-f-page btn-record">
-        {loading ? <i className="fas fa-spinner fa-spin"></i> : "Show Result"}
-      </button>
+      <div className='sub-title'>
+        {
+          selectedFile?.name
+        }
+      </div>
+      <div className='parentLottie d-flex align-items-center justify-content-center'>
+        <div onClick={stopRecording} className='record'>
+          {record ? <Lottie animationData={stop} className='lottieStop ' /> : ""}
+        </div>
+        <div>
+
+          {record ? <Lottie animationData={sound} className='lottieSound' /> : ""}
+        </div>
+        <ReactMic
+          record={record}
+          className="sound-wave d-none"
+          onStop={onStop}
+          onData={onData}
+          strokeColor="#000000"
+          backgroundColor="#FF4081"
+        />
+
+      </div>
+      <button onClick={sendRecord} className="btn-f-page btn-record"> {loading ? (
+        <i className="fas fa-spinner fa-spin"></i>
+      ) : (
+        "Show Result"
+      )}</button>
     </div>
   );
 };
 
-export default Newrecord;
+export default AudioRecorder;

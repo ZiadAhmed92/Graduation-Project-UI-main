@@ -2,11 +2,7 @@
     min-height: 400px;
 }
 
-.record {
-    width: 100px;
-    margin: 0 20px;
-    cursor: pointer;
-}
+
 
 .lottieStop {
     width: 60px;
@@ -17,12 +13,16 @@
     color: var(--text-customized);
     background: #CA4B7F;
 }
+.lottieStop{
+    width: 100px !important;
+    cursor: pointer;
+}
+.record{
+    
+    width: 25%;
+}
 
 @media only screen and (max-width: 600px) {
-
-
-
-
     .btn-record {
         width: 100%;
         font-size: 1.3em !important;
@@ -33,71 +33,19 @@
 
 }
 
-input[type="file"] {
+
+
+
+.selectedAudio{
+    
+
     position: relative;
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-    border-radius: 100%;
-margin-left: 3rem;
-}
-
-input[type="file"]::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("../../../image/import.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 1;
+        background-image: url("../../../image/import.png");
+            z-index: 100;
+    
 
 }
 
-input[type="file"]:focus::before {
-    outline: 2px solid #3498db;
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.7);
-
-}
-
-.record {
-    position: relative;
-    overflow: hidden;
-    width: 90px;
-    height: 90px;
-    /* أو اضبطها وفقًا لحجم الصورة الفعلي */
-    cursor: pointer;
-    /* تغيير المؤشر عند تحريك الماوس فوق الصورة */
-}
-
-/* .record::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url("../../../image/record.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 1;
-    border-radius: 5px; 
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    -ms-border-radius: 5px;
-    -o-border-radius: 5px;
-} */
-
-/* يمكنك أيضاً تخصيص مظهر التحديد أو التأكيد هنا */
-.record:focus::before {
-    outline: 2px solid #3498db;
-    /* لتحديد العنصر عند التركيز */
-    box-shadow: 0 0 5px rgba(52, 152, 219, 0.7);
-    /* تأثير الظل عند التركيز */
-}
 
 .new-color{
     color: var(--text);
