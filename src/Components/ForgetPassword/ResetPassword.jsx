@@ -8,11 +8,11 @@ const ResetPassword = () => {
   let resetPassword = async () => {
     try {
       const { data } = await axios.post(`https://speech-emotions-874.onrender.com/users/resetPassword`, newPassword)
-      // if (data.message == "success") {
-      //   setPhoto(data.photo.path)
-      //   console.log(photo)
-      //   setLoading(false)
-      // }
+      if (data.message == "success") {
+        setPhoto(data.photo.path)
+        console.log(photo)
+        setLoading(false)
+      }
       console.log(data)
     } catch (err) {
       console.log(err)

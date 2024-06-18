@@ -21,7 +21,9 @@
     
     width: 25%;
 }
-
+.record-mic{
+    cursor: pointer;
+}
 @media only screen and (max-width: 600px) {
     .btn-record {
         width: 100%;

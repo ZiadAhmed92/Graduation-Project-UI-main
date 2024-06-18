@@ -18,18 +18,22 @@ export const ForgetPassword = () => {
       let { data } = await axios.post(`https://speech-emotions-874.onrender.com/users/forgot-password`, {
         email,
       });
-
-      if (data === "Password reset email sent") {
+console.log(data)
+      if (data.message === 'Password reset email sent') {
+        console.log("first")
         setMessage("We Have Sent Your Email");
         Navigate("/login");
+        
         setLoading(false);
       } else {
         setLoading(false);
-        setError(data);
+        console.log("first2")
+        setError(data.message);
       }
     } catch (err) {
       setError(err.response.data);
       setLoading(false);
+      console.log(err)
     }
   }
 
@@ -55,7 +59,7 @@ export const ForgetPassword = () => {
               <br /> Instruction
             </div>
             <form onSubmit={submitResetPassword} className="d-flex flex-column">
-              <p className="text-start text-capitalize text-danger ">{error}</p>
+              <p className="text-start text-capitalize text-danger ">{error.message || error}</p>
               <p className="text-start text-capitalize  text-info">{message}</p>
               <div className="media-desktop mb-3">
                 <Lottie animationData={think} />

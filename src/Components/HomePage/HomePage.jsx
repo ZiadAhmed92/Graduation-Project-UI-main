@@ -142,7 +142,7 @@ export default function Homepage() {
       path: "aboutus",
     },
   ];
-  const url = "http://localhost:5173/homepage/history"
+  const url = `http://localhost:5173/${localStorage.getItem("Token")}/${localStorage.getItem("UserId")}`
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
