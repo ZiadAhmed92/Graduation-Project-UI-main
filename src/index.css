@@ -17,7 +17,7 @@ body {
 
 :root {
   --body: #EEE;
-  --text: black;
+  --text: rgb(0, 0, 0);
   --text-customized:#EEE;
   --secondary: black;
   --title: black;
@@ -29,7 +29,8 @@ body {
 }
 
 .dark {
-  --body: black;
+  --body: #22303C;
+  /* --body: rgb(10, 9, 14); */
   --text: #EEE;
   --text-customized:#EEE;
   /* --text:#F3D2F2; */

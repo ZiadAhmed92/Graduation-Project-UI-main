@@ -254,7 +254,7 @@ export default function Homepage() {
           />
         )}
         <div style={{ textAlign: "center", marginTop: "50px" }}>
-          <h2>Scan this QR Code to visit History</h2>
+          <h2 style={{ color :'var(--text)'}}>Scan this QR Code to visit History</h2>
           <QRCode value={url} size={150} level={"H"} includeMargin={true} />
         </div>
         <Typography
