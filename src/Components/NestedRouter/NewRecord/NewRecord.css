@@ -50,3 +50,6 @@
 .new-color{
     color: var(--text);
 }
+.record-mic{
+    cursor: pointer;
+}

@@ -11,7 +11,6 @@ import {
   AccumulationTooltip,
   AccumulationDataLabel,
 } from "@syncfusion/ej2-react-charts";
-import loading from "../../../image/loading.json"
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Lottie from "lottie-react";

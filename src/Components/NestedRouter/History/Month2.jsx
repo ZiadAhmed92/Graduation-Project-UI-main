@@ -6,7 +6,7 @@ import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Col
 import { Browser } from '@syncfusion/ej2-base';
 import { Link } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import loading from '../../../image/loading.json';
+import loading from '../../../image/new loading.json';
 import { useYear } from '../../Context/YearContext';
 
 

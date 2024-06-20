@@ -142,10 +142,22 @@ const AudioRecorder = () => {
 
       <ToastContainer />
       <div className='d-flex align-items-center justify-content-center'>
-        <img src={imgFile} onClick={startRecording}></img>
-
+        {/* <img src={imgFile} onClick={startRecording}></img> */}
+        <button
+            className="btn border-0 record-mic "
+            onClick={startRecording}
+            style={{
+              color: "white",
+              background: "#CA4B7F",
+              width: "100px",
+              height: "100px",
+              borderRadius: "100px",
+            }}
+          >
+            <i className="fa-solid fa-microphone fa-4x"></i>
+          </button>
         <label htmlFor="fileInput" style={{ cursor: "pointer", textAlign: "center" }}>
-          <img src={imgRecord} style={{ width: "130px", height: "130px" }} />
+          <img src={imgRecord} style={{ width: "100px", height: "100px" }} />
           <input
             type="file"
             id="fileInput"

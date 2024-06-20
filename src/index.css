@@ -29,7 +29,7 @@ body {
 }
 
 .dark {
-  --body: black;
+  --body: #181818;
   --text: #EEE;
   --text-customized:#EEE;
   /* --text:#F3D2F2; */
@@ -104,4 +104,27 @@ html {
 
 .fa-solid.fa-pen {
   border: 1px solid var(--text);
+}
+
+
+.downloadQR{
+  color: var(--text-customized);
+  font-family: "Protest Riot", sans-serif !important;
+  border: none;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: normal;
+  border-radius: 50px;
+  background: #dc0b62;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.35);
+  width: 100%;
+  transition-duration: 0.2s;
+
+}
+
+.downloadQR:hover{ 
+  background: white;
+  color: #dc0b62;
+  border: #dc0b62;
+  box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.35);
 }

@@ -19,13 +19,13 @@ export const ForgetPassword = () => {
         email,
       });
 
-      if (data === "Password reset email sent") {
+      if (data.message === "Password reset email sent") {
         setMessage("We Have Sent Your Email");
         Navigate("/login");
         setLoading(false);
       } else {
         setLoading(false);
-        setError(data);
+        setError(data.message);
       }
     } catch (err) {
       setError(err.response.data);

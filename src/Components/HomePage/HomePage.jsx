@@ -127,6 +127,11 @@ export default function Homepage() {
       path: "history",
     },
     {
+      text: 'Share',
+      icon: { icon: <i className="fa-solid fa-qrcode"></i> },
+      path: "language",
+    },
+    {
       text: t("Suggestion"),
       icon: { icon: <i className="fa-solid fa-pen-nib"></i> },
       path: "suggestion",
@@ -142,7 +147,7 @@ export default function Homepage() {
       path: "aboutus",
     },
   ];
-  const url = "http://localhost:5173/homepage/history"
+  // const url = "http://localhost:5173/homepage/history"
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -253,10 +258,10 @@ export default function Homepage() {
             src={localStorage.getItem("imgCover")}
           />
         )}
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
+        {/* <div style={{ textAlign: "center", marginTop: "50px" }}>
           <h2>Scan this QR Code to visit History</h2>
           <QRCode value={url} size={150} level={"H"} includeMargin={true} />
-        </div>
+        </div> */}
         <Typography
           align="center"
           sx={{ fontSize: open ? 17 : 0, transition: "0.25s" }}
