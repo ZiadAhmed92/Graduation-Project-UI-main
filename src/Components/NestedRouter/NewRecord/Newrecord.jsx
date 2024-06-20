@@ -98,6 +98,7 @@ const AudioRecorder = () => {
   };
 
   const sendRecord = async () => {
+    stopRecording()
     setLoading(true);
     console.log(selectedFile, recordedBlob)
     if (recordedBlob || selectedFile) {

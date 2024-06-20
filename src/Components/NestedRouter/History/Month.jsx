@@ -2,7 +2,7 @@ import axios from 'axios';
 import Lottie from 'lottie-react';
 // eslint-disable-next-line no-unused-vars
 import React, { useLayoutEffect } from 'react';
-import loading from "../../../image/loading.json";
+import loading from "../../../image/new loading.json";
 import { Link, Outlet } from 'react-router-dom';
 import { YearProvider, useYear } from '../../Context/YearContext';
 

@@ -253,17 +253,23 @@ const Day = () => {
 };
 const ButtonRow = ({ data }) => {
   return (
-    <div className="button-row">
-      {data.map((item, index) => (
-        <div key={index}>
-          <button
-            key={index}
-            className="color-button mx-2"
-            style={{ backgroundColor: item.fill }}
-          />
-          <span style={{ color: 'var(--text)' }}>{item.x}</span>
-        </div>
-      ))}
+    <div className="container">
+      <div className="row">
+
+        {data.map((item, index) => (
+          <div className="col-3"key={index}>
+            <div >
+              <button
+                key={index}
+                className="color-button mx-2"
+                style={{ backgroundColor: item.fill }}
+              /><br/>
+              <span style={{ color: 'var(--text)' }}>{item.x}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
     </div>
   );
 };
