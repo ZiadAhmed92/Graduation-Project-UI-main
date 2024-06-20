@@ -33,9 +33,9 @@ const ResetSendEmail = () => {
 
   return (
     <div className='parent-resend-email'>
-      <div>
-        <h1 className='sub-title sub-title-forget'>Email has been sent</h1>
-        <h3 className='text-forget-pass text-capitalize fontfamily'>Please Check Your Inbox and Click In Link To Confirm Your Account </h3>
+      <div className=' w-75 '>
+        <h1 className='sub-title sub-title-forget fs-5 '>Email has been sent</h1>
+        <h3 className='text-forget-pass text-capitalize fontfamily fs-5'>Please Check Your Inbox and Click In Link To Confirm Your Account </h3>
       </div>
       <div className='w-100'>
         <div>

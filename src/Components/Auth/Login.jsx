@@ -99,6 +99,7 @@ const Login = () => {
                   type="email"
                   placeholder="Email "
                   className="email fontfamily"
+                  disabled={loading ? true : false}
                   name="email"
                   onChange={getUserData}
                 />
@@ -107,6 +108,7 @@ const Login = () => {
                   type={`${type}`}
                   placeholder="Password "
                   className="password fontfamily"
+                  disabled={loading ? true : false}
                   name="password"
                   onChange={getUserData}
                 />

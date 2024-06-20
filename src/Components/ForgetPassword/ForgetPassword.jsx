@@ -18,12 +18,12 @@ export const ForgetPassword = () => {
       let { data } = await axios.post(`https://speech-emotions-874.onrender.com/users/forgot-password`, {
         email,
       });
-console.log(data)
+      console.log(data)
       if (data.message === 'Password reset email sent') {
         console.log("first")
         setMessage("We Have Sent Your Email");
-        Navigate("/login");
-        
+        Navigate("/resetSendEmail");
+
         setLoading(false);
       } else {
         setLoading(false);
@@ -46,7 +46,7 @@ console.log(data)
     <div>
       <div className="container pt-2">
         <div className="row mt-2">
-          
+
 
           <div className="col-md-6 forget-parent ">
             <div className="text-forget-pass text-capitalize mt-4 fontfamily">

@@ -18,18 +18,18 @@ const WelcomeFirst = () => {
               affective states from speech.
             </h6>
           </div>
-          
+
           <div className="text-center">
-            
+
             <Link to="/welcomesecond">
               {" "}
               <button className="btn-welcome1">Next</button>
             </Link>
-            <div className="d-flex justify-content-center align-items-center fixed-bottom">
-          <Link  to="/"><button className="btn rounded-5" style={{color:"white",background:"#dc0b62"}} >  </button></Link>
-              <Link  to="/welcomesecond"><button className="btn rounded-5 mx-4" style={{background:"gray"}} >  </button></Link>
-              <Link  to="/welcomethird"><button className="btn rounded-5" style={{background:"gray"}} >  </button></Link>
-          </div>
+            <div className="d-flex justify-content-center align-items-center fixed-bottom mb-5">
+              <Link to="/"><button className="btn rounded-5" style={{ color: "white", background: "#dc0b62" }} >  </button></Link>
+              <Link to="/welcomesecond"><button className="btn rounded-5 mx-4" style={{ background: "gray" }} >  </button></Link>
+              <Link to="/welcomethird"><button className="btn rounded-5" style={{ background: "gray" }} >  </button></Link>
+            </div>
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
  * Sample for Column series
  */
 import * as React from 'react';
-import loading from "../../../image/loading.json"
+import loading from '../../../image/new loading.json';
 import {
   ChartComponent,
   SeriesCollectionDirective,

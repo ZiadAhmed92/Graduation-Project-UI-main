@@ -1,33 +1,68 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';//1
+import React, { useState } from "react";
+import QRCodeCanvas from "qrcode.react";
+import { AiFillCopy, AiOutlineDownload } from "react-icons/ai";
+import html2canvas from "html2canvas";
+const url = `http://localhost:5173/${localStorage.getItem("Token")}/${localStorage.getItem("UserId")}`
+function Language() {
+  const [qr, setqr] = useState("");
+  const QrCodeDownload = async () => {
+    const canvas = await (
+      await html2canvas(document.getElementById("canvas"))
+    ).toDataURL();
 
-const Language = () => {
-  const { t, i18n } = useTranslation();//2
-
-  const changeLanguage = (language) => {
-    i18n.changeLanguage(language);
+    if (canvas) {
+      setqr(canvas);
+      const a = document.createElement("a");
+      a.download = "QrCode.png";
+      a.href = canvas;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
   };
+  const QrCodeCopy = () => {
+    navigator.clipboard.writeText(qr);
+    window.alert("Copied to clipboard !")
 
-  const handleLanguageChange = () => {
 
-    const selectedLanguage = document.getElementById('gender').value;
-    changeLanguage(selectedLanguage);
-  };
-
+  }
   return (
     <div>
-      <h2 className='py-3 fs-2 fontfamily' style={{ color: "#dc0b62" }}>{t('Language')}</h2>
-      <div className='mt-5 d-flex flex-column align-items-center gap-2 fontfamily'>
-        <h6 className='fs-5 fontfamily' style={{ color: "#dc0b62" }}>{t('choose')}</h6>
-        <div className='details p-5'>
-          <select id="gender" className="input-signup curser-pointer my-2">
-            <option value="ar" className="male fontfamily">{t('arabic')}</option>
-            <option value="en" className="male fontfamily">{t('english')}</option>
-          </select>
-          <button className='btn w-100 mt-5 fontfamily' style={{ background: "#dc0b62", color: "var(--text)" }} onClick={handleLanguageChange}>{t('change')}</button>
+      <div className="container">
+        <div className="row align-items-center">
+          <div className="col-md-6 ">
+            <h2 className="text-center fontFamily" style={{ color: "var(--text)" }}>Scan this QR Code to visit History</h2>
+            <div id="canvas" className=" relative" style={{ textAlign: "center", marginTop: "50px" }}>
+              <QRCodeCanvas
+                value={url}
+                size={300}
+                level={"H"}
+                includeMargin={true}
+              />
+            </div>
+          </div>
+          <div className="col-md-6">
+            <div className="  mt-4 p-4 space-x-2 ">
+              <button
+                onClick={() => QrCodeDownload()}
+                className="d-flex downloadQR align-items-center justify-content-center  border-0 py-2 px-4  w-100 "
+              >
+                <AiOutlineDownload />
+                Download
+              </button>
+              <br />
+              <button
+                onClick={() => QrCodeCopy()}
+                className="d-flex downloadQR align-items-center justify-content-center  border-0 py-2 px-4  w-100 "
+              >
+                <AiFillCopy />
+                Copy
+              </button>
+            </div></div>
         </div>
       </div>
     </div>
+
   );
 }
 

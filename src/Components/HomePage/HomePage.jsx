@@ -112,7 +112,7 @@ export default function Homepage() {
 
   const Array1 = [
     {
-      text: t("New record"),
+      text: t("Home Page"),
       icon: { icon: <i className="fa-solid fa-microphone"></i> },
       path: "",
     },
@@ -125,6 +125,11 @@ export default function Homepage() {
       text: t("History"),
       icon: { icon: <i className="fa-solid fa-clock-rotate-left"></i> },
       path: "history",
+    },
+    {
+      text: 'Share',
+      icon: { icon: <i className="fa-solid fa-qrcode"></i> },
+      path: "language",
     },
     {
       text: t("Suggestion"),
@@ -142,7 +147,7 @@ export default function Homepage() {
       path: "aboutus",
     },
   ];
-  const url = `http://localhost:5173/${localStorage.getItem("Token")}/${localStorage.getItem("UserId")}`
+  // const url = `http://localhost:5173/${localStorage.getItem("Token")}/${localStorage.getItem("UserId")}`
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -253,10 +258,10 @@ export default function Homepage() {
             src={localStorage.getItem("imgCover")}
           />
         )}
-        <div style={{ textAlign: "center", marginTop: "50px" }}>
+        {/* <div style={{ textAlign: "center", marginTop: "50px" }}>
           <h2 style={{ color :'var(--text)'}}>Scan this QR Code to visit History</h2>
           <QRCode value={url} size={150} level={"H"} includeMargin={true} />
-        </div>
+        </div> */}
         <Typography
           align="center"
           sx={{ fontSize: open ? 17 : 0, transition: "0.25s" }}

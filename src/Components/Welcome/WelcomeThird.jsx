@@ -21,7 +21,7 @@ const WelcomeThird = () => {
             {" "}
             <button className="btn-welcome1 ">Get Started</button>
           </Link>
-          <div className="d-flex justify-content-center align-items-center  fixed-bottom">
+          <div className="d-flex justify-content-center align-items-center  fixed-bottom  mb-5">
               <Link  to="/"><button className="btn rounded-5" style={{background:"gray"}} >  </button></Link>
               <Link  to="/welcomesecond"><button className="btn rounded-5 mx-4" style={{background:"gray"}} >  </button></Link>
               <Link  to="#"><button className="btn rounded-5" style={{color:"white",background:"#dc0b62"}} >  </button></Link>

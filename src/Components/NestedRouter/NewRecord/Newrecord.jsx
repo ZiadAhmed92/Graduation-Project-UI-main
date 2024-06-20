@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const AudioRecorder = () => {
   let navigate = useNavigate()
   const [record, setRecord] = useState(false);
+  const [message, setMessage] = useState("");
   const [path, setPath] = useState(null);
   const [recordedBlob, setRecordedBlob] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -131,7 +132,7 @@ const AudioRecorder = () => {
         setLoading(false);
       }
     } else {
-      console.log('No recorded media available.');
+      setMessage('No Recorded Media Available');
       setLoading(false);
     }
   };
@@ -171,6 +172,11 @@ const AudioRecorder = () => {
       <div className='sub-title'>
         {
           selectedFile?.name
+        }
+      </div>
+      <div className='sub-title'>
+        {
+          selectedFile?.name || path ? "":message
         }
       </div>
       <div className='parentLottie d-flex align-items-center justify-content-center'>

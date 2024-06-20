@@ -17,11 +17,11 @@ export default function AboutUs() {
     { img: saeed, name: t("Mohamed Saeed"), desc: t("Front-end Developer") },
     { img: mashor, name: t("Mohamed Ahmed"), desc: t("Back-end Developer ") },
     { img: female, name: t("Nourhan Gamal"), desc: t("ML Engineer") },
-    { img: tawfek, name: t("Mohamed Tawfeeq"), desc: t("Flutter Developer") },
     { img: female, name: t("Nourhan Hassan"), desc: t("ML Engineer") },
-    { img: female, name: t("Somia Saad"), desc: t("Back-end Developer ") },
     { img: female, name: t("Shahd Ahmed"), desc: t("UI/UX Designer") },
-    { img: female, name: t("Shahd Ahmed"), desc: t("Document Writer") },
+    { img: female, name: t("Shahd Ahmed"), desc: t("Flutter Developer") },
+    { img: female, name: t("Somia Saad"), desc: t("Back-end Developer ") },
+    { img: tawfek, name: t("Mohamed Tawfeeq"), desc: t("Flutter Developer") },
 
   ]
   return (

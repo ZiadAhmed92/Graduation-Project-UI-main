@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import * as React from 'react';
-import loading from "../../../image/loading.json"
+import loading from '../../../image/new loading.json';
 import {
   ChartComponent,
   SeriesCollectionDirective,

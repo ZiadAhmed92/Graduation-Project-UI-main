@@ -156,7 +156,7 @@ const Day = () => {
   else {
     return (
       <>
-        <div className="w-100 mt-5">
+        <div className="w-100 mt-5 ">
           <div className="text-center">
             <Link to="">
               <button
@@ -192,7 +192,7 @@ const Day = () => {
             </Link>
           </div>
         </div>
-        <div className="control-pane ">
+        <div className="control-pane w-75 m-auto">
           <style>{SAMPLE_CSS}</style>
           <div className="control-section row">
             <AccumulationChartComponent

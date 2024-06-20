@@ -147,6 +147,7 @@ const Register = () => {
                   type="text"
                   placeholder="First Name "
                   className="firstName fontfamily"
+                  disabled={loading?true:false}
                   name="firstname"
                   onChange={getUserData}
                 />
@@ -154,6 +155,7 @@ const Register = () => {
                   type="text"
                   placeholder="Last Name "
                   className="lastName fontfamily"
+                  disabled={loading ? true : false}
                   name="lastname"
                   onChange={getUserData}
                 />
@@ -191,6 +193,7 @@ const Register = () => {
                   type="date"
                   placeholder="Birthday "
                   className="input-signup fontfamily"
+                  disabled={loading ? true : false}
                   name="birthday"
                   onChange={getUserData}
                 />
@@ -212,6 +215,7 @@ const Register = () => {
                   type="number"
                   placeholder="Phone Number "
                   className="input-signup fontfamily"
+                  disabled={loading ? true : false}
                   name="phone"
                   onChange={getUserData}
                 />
@@ -230,6 +234,7 @@ const Register = () => {
                 <select
                   id="gender"
                   className="input-signup curser-pointer fontfamily"
+                  disabled={loading ? true : false}
                   name="gender"
                   onChange={getUserData}
                 >
@@ -261,6 +266,7 @@ const Register = () => {
                   type="email"
                   placeholder="Email "
                   className="input-signup fontfamily"
+                  disabled={loading ? true : false}
                   name="email"
                   onChange={getUserData}
                 />
@@ -275,6 +281,7 @@ const Register = () => {
                     type={`${type}`}
                     placeholder="Password "
                     className="input-signup fontfamily"
+                    disabled={loading ? true : false}
                     name="password"
                     onChange={getUserData}
                   />
