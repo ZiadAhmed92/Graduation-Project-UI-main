@@ -31,8 +31,14 @@ import Month1 from './Components/NestedRouter/History/Month1.jsx'
 import ResetPassword from './Components/ForgetPassword/ResetPassword.jsx'
 import { useEffect } from 'react'
 import ResetSendEmail from './Components/ResetSendEmail/ResetSendEmail.jsx'
+import ProtectedRouter from './Components/ProtectedRouter/ProtectedRouter.jsx'
 function App() {
-
+  useEffect(() => {
+    const token = localStorage.getItem('Token');
+    if (token) {
+      router.navigate('/homepage', { replace: true });
+    }
+  }, []);
   const router = createBrowserRouter([
     {
       path: "/",
@@ -52,55 +58,55 @@ function App() {
     },
     {
       path: "/homepage",
-      element: <Homepage />,
+      element:<ProtectedRouter><Homepage /></ProtectedRouter> ,
       children: [
         {
           path: "",
-          element: <Newrecord />,
+          element:<ProtectedRouter> <Newrecord /></ProtectedRouter>,
         },
         {
           path: "forgetpasswordsecond",
-          element: <ForgetPasswordSecond />,
+          element:<ProtectedRouter><ForgetPasswordSecond /></ProtectedRouter> ,
         },
         {
           path: "aboutus",
-          element: <AboutUs />,
+          element:<ProtectedRouter><AboutUs /></ProtectedRouter> ,
         },
         {
           path: "account",
-          element: <Account />,
+          element:<ProtectedRouter> <Account /></ProtectedRouter>,
         },
         {
           path: "history",
-          element: <History />,
+          element:<ProtectedRouter> <History /></ProtectedRouter>,
           children: [
             {
               path: "",
-              element: <Day />,
+              element:<ProtectedRouter><Day /></ProtectedRouter> ,
             },
             {
               path: "week",
-              element: <Week />,
+              element: <ProtectedRouter><Week /></ProtectedRouter>,
             },
             {
               path: "month",
-              element: <RealMonth />,
+              element:<ProtectedRouter> <RealMonth /></ProtectedRouter>,
             },
             {
               path: "year",
-              element: <Month />,
+              element:<ProtectedRouter> <Month /></ProtectedRouter>,
               children: [
                 {
                   path: "",
-                  element: <Month1 />,
+                  element: <ProtectedRouter><Month1 /></ProtectedRouter>,
                 },
                 {
                   path: "month2",
-                  element: <Month2 />,
+                  element:<ProtectedRouter><Month2 /></ProtectedRouter> ,
                 },
                 {
                   path: "month3",
-                  element: <Month3 />,
+                  element: <ProtectedRouter><Month3 /></ProtectedRouter>,
                 },
               ]
             },
@@ -108,7 +114,7 @@ function App() {
         },
         {
           path: "suggestion",
-          element: <Suggestion />,
+          element:<ProtectedRouter> <Suggestion /></ProtectedRouter>,
         },
         {
           path: "language",
@@ -116,17 +122,17 @@ function App() {
         },
         {
           path: "result",
-          element: <Result />,
+          element:<ProtectedRouter> <Result /></ProtectedRouter>,
         },
       ],
     },
     {
       path: "/update",
-      element: <UpdateUser />,
+      element: <ProtectedRouter><UpdateUser /></ProtectedRouter>,
     },
     {
       path: "/thanks",
-      element: <ThankYou />,
+      element:<ProtectedRouter> <ThankYou /></ProtectedRouter>,
     },
     {
       path: "/welcomethird",
